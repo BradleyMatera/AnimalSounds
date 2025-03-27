@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="400" height="300" fill="#FFF0F5"/>
+    <!-- Border -->
+    <rect width="400" height="300" fill="none" stroke="#C71585" stroke-width="4"/>
+    <!-- Text Container -->
+    <rect x="50" y="100" width="300" height="100" fill="#FFFAF0" rx="10" ry="10"/>
+    <!-- Text -->
+    <text x="50%" y="50%" font-family="Arial" font-size="32" fill="#C71585" text-anchor="middle" dominant-baseline="middle" font-weight="bold">
+        🐱 Cat
+    </text>
+</svg> 

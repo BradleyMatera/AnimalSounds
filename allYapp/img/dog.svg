@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="400" height="300" fill="#F0FFF0"/>
+    <!-- Border -->
+    <rect width="400" height="300" fill="none" stroke="#228B22" stroke-width="4"/>
+    <!-- Text Container -->
+    <rect x="50" y="100" width="300" height="100" fill="#F5FFFA" rx="10" ry="10"/>
+    <!-- Text -->
+    <text x="50%" y="50%" font-family="Arial" font-size="32" fill="#228B22" text-anchor="middle" dominant-baseline="middle" font-weight="bold">
+        🐕 Dog
+    </text>
+</svg> 
