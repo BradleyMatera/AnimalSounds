@@ -1,18 +1,16 @@
 :root {
     --primary-color: #4CAF50;
     --secondary-color: #45a049;
-    --background-color: #f4f4f4;
-    --text-color: #333;
+    --background-color: #f8f9fa;
+    --text-color: #2c3e50;
     --button-hover: #3d8b40;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     --card-bg: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.1);
-    --border-radius: 12px;
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    --border-radius: 16px;
+    --transition: all 0.3s ease;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
 }
 
 * {
@@ -22,37 +20,21 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     line-height: 1.6;
     background-color: var(--background-color);
     color: var(--text-color);
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     min-height: 100vh;
     display: flex;
     flex-direction: column;
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
 }
 
 header {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-<<<<<<< HEAD
-    padding: 1rem;
+    padding: var(--spacing-md);
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-=======
-<<<<<<< HEAD
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-=======
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 2px 5px var(--shadow-color);
+    box-shadow: 0 4px 6px var(--shadow-color);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -60,108 +42,65 @@ header {
 
 header h1 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: var(--spacing-sm);
     text-shadow: 2px 2px 4px var(--shadow-color);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    font-weight: 700;
 }
 
 nav ul {
     list-style: none;
-    padding: 1rem 0;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 1rem;
-<<<<<<< HEAD
-=======
-=======
+    padding: var(--spacing-sm) 0;
     display: flex;
     justify-content: center;
-    gap: 2rem;
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    gap: var(--spacing-md);
 }
 
 .nav-link {
     color: white;
     text-decoration: none;
-    font-weight: bold;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #e0e0e0;
-<<<<<<< HEAD
-=======
-=======
+    font-weight: 600;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+    transition: var(--transition);
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
 }
 
 main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-}
-
-section {
-    background: white;
-    border-radius: 8px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-<<<<<<< HEAD
-=======
-=======
+    max-width: 1400px;
+    margin: var(--spacing-lg) auto;
+    padding: 0 var(--spacing-md);
     flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: var(--spacing-lg);
 }
 
 section {
     background: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 2rem;
+    padding: var(--spacing-md);
     box-shadow: 0 4px 6px var(--shadow-color);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    transition: var(--transition);
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px var(--shadow-color);
 }
 
 h2 {
     color: var(--primary-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
     text-align: center;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     font-size: 1.8rem;
     position: relative;
-    padding-bottom: 0.5rem;
+    padding-bottom: var(--spacing-sm);
 }
 
 h2::after {
@@ -170,132 +109,108 @@ h2::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 3px;
-    background-color: var(--primary-color);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     border-radius: 2px;
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
 }
 
 .button-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
 }
 
 .sound-button {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border: none;
-    padding: 1rem;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
-<<<<<<< HEAD
-=======
-=======
+    padding: var(--spacing-sm);
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1rem;
-    transition: all 0.3s ease;
+    font-weight: 600;
+    transition: var(--transition);
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 80px;
     box-shadow: 0 2px 4px var(--shadow-color);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    position: relative;
+    overflow: hidden;
+}
+
+.sound-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.sound-button:hover::before {
+    left: 100%;
 }
 
 .sound-button:hover {
-    background-color: var(--button-hover);
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     transform: translateY(-2px);
     box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .sound-button:active {
     transform: translateY(0);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+}
+
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
 }
 
 .control-button {
-    background-color: #f44336;
+    background: linear-gradient(135deg, #f44336, #da190b);
     color: white;
     border: none;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-    padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    display: block;
-    margin: 0 auto 1rem;
-    transition: background-color 0.3s ease;
-<<<<<<< HEAD
-=======
-=======
-    padding: 1rem 2rem;
+    padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1rem;
+    font-weight: 600;
     display: block;
-    margin: 0 auto 1.5rem;
-    transition: all 0.3s ease;
+    margin: 0 auto;
+    transition: var(--transition);
     box-shadow: 0 2px 4px var(--shadow-color);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    width: 100%;
+    max-width: 300px;
 }
 
 .control-button:hover {
-    background-color: #da190b;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     transform: translateY(-2px);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .volume-control {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-<<<<<<< HEAD
-    margin-top: 1rem;
-=======
-<<<<<<< HEAD
-    margin-top: 1rem;
-=======
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: #f8f8f8;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: #f8f9fa;
     border-radius: var(--border-radius);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
 }
 
 #volume-slider {
     width: 200px;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
     height: 8px;
     -webkit-appearance: none;
     background: #ddd;
@@ -310,136 +225,126 @@ h2::after {
     background: var(--primary-color);
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 #volume-slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+}
+
+#volume-value {
+    min-width: 4rem;
+    text-align: right;
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
 .sound-name-box {
     text-align: center;
-    padding: 1rem;
-    margin-top: 1rem;
-    background-color: #e8f5e9;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-    border-radius: 4px;
-    min-height: 3rem;
-}
-
-#animal-image {
-    text-align: center;
-<<<<<<< HEAD
-=======
-=======
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
     border-radius: var(--border-radius);
     min-height: 3rem;
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 600;
     color: var(--primary-color);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 #animal-image {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-md);
 }
 
 #loading-text {
     font-size: 1.2rem;
     color: #666;
     text-align: center;
-    padding: 2rem;
-    background-color: #f8f8f8;
+    padding: var(--spacing-md);
+    background-color: #f8f9fa;
     border-radius: var(--border-radius);
     width: 100%;
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 #animal-img {
     max-width: 100%;
     height: auto;
-<<<<<<< HEAD
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-=======
-<<<<<<< HEAD
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-=======
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px var(--shadow-color);
-    transition: transform 0.3s ease;
+    transition: var(--transition);
 }
 
 #animal-img:hover {
     transform: scale(1.02);
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+}
+
+.favorite-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    opacity: 0.8;
+}
+
+.favorite-button:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.empty-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: var(--spacing-md);
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    width: 100%;
 }
 
 footer {
     text-align: center;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-    padding: 1rem;
-    background-color: var(--primary-color);
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-<<<<<<< HEAD
-=======
-=======
-    padding: 1.5rem;
-    background-color: var(--primary-color);
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     margin-top: auto;
+    box-shadow: 0 -4px 6px var(--shadow-color);
 }
 
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
+        gap: var(--spacing-md);
     }
     
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
     .button-container {
         grid-template-columns: 1fr;
     }
     
-<<<<<<< HEAD
-    main {
-        margin-bottom: 4rem;
-=======
-<<<<<<< HEAD
-    main {
-        margin-bottom: 4rem;
-=======
     header h1 {
         font-size: 2rem;
     }
     
     nav ul {
         flex-direction: column;
-        gap: 1rem;
+        gap: var(--spacing-sm);
     }
     
     .nav-link {
         display: block;
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+    }
+
+    section {
+        padding: var(--spacing-sm);
     }
 }

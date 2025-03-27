@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Animal Sounds Soundboard - Play and learn about different animal sounds">
     <title>Animal Sounds Soundboard</title>
     <link rel="stylesheet" href="allYapp/css/styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/svg+xml" href="allYapp/img/lion.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header role="banner">
-        <h1 id="main-heading" aria-label="Animal Sounds Soundboard">Animal Sounds Soundboard</h1>
-        <nav aria-label="Main navigation">
-            <ul>
-                <li><a href="#soundboard" class="nav-link" aria-label="Go to Soundboard section">Soundboard</a></li>
-                <li><a href="#animal-image" class="nav-link" aria-label="Go to Animal Image section">Animal Image</a></li>
-            </ul>
-        </nav>
+    <header>
+        <h1>Animal Sounds Soundboard</h1>
     </header>
-    <main role="main">
-        <!-- Soundboard section -->
-        <section id="soundboard" role="region" aria-labelledby="soundboard-heading">
-            <h2 id="soundboard-heading" aria-label="Soundboard">Soundboard</h2>
-            <div id="sound-buttons" class="button-container" aria-label="Sound buttons">
-                <button id="LionRoar" class="sound-button" aria-label="Play Lion Roar" tabindex="0">Lion Roar</button>
-                <button id="ElephantTrumpet" class="sound-button" aria-label="Play Elephant Trumpet" tabindex="0">Elephant Trumpet</button>
-                <button id="DogBark" class="sound-button" aria-label="Play Dog Bark" tabindex="0">Dog Bark</button>
-                <button id="CatMeow" class="sound-button" aria-label="Play Cat Meow" tabindex="0">Cat Meow</button>
-                <button id="BirdChirp" class="sound-button" aria-label="Play Bird Chirp" tabindex="0">Bird Chirp</button>
-                <button id="FrogCroak" class="sound-button" aria-label="Play Frog Croak" tabindex="0">Frog Croak</button>
+
+    <main>
+        <section id="sounds" aria-label="Animal Sounds">
+            <h2>Animal Sounds</h2>
+            <div class="button-container">
+                <button class="sound-button" data-sound="lion">Lion</button>
+                <button class="sound-button" data-sound="elephant">Elephant</button>
+                <button class="sound-button" data-sound="dog">Dog</button>
+                <button class="sound-button" data-sound="cat">Cat</button>
+                <button class="sound-button" data-sound="bird">Bird</button>
+                <button class="sound-button" data-sound="frog">Frog</button>
             </div>
-            <button id="stopAllSounds" class="control-button" aria-label="Stop All Sounds" tabindex="0">Stop All Sounds</button>
-            <div class="volume-control" aria-label="Volume control">
-                <label for="volume-slider">Volume:</label>
-                <input type="range" id="volume-slider" name="volume" min="0" max="1" step="0.1" value="1" aria-valuemin="0" aria-valuemax="1" aria-valuenow="1" aria-label="Volume slider">
+            <div class="controls-container">
+                <button class="control-button" id="stop-button">Stop All Sounds</button>
+                <div class="volume-control">
+                    <label for="volume-slider">Volume:</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50">
+                    <span id="volume-value">50%</span>
+                </div>
             </div>
-            <!-- ARIA live region -->
-            <div id="live-region" aria-live="polite" style="position: absolute; left: -9999px;"></div>
-            <!-- Text box for displaying sound name -->
-            <div id="sound-name" class="sound-name-box" aria-live="polite" aria-atomic="true"></div>
+            <div class="sound-name-box" id="sound-name">Click an animal to hear its sound!</div>
         </section>
-        <!-- Image display section -->
-        <section id="animal-image" role="region" aria-labelledby="image-heading">
-            <h2 id="image-heading" aria-label="Animal Image">Animal Image</h2>
-            <p id="loading-text" aria-live="polite">Click a button to see the animal image</p>
-            <img id="animal-img" src="allYapp/img/lion.svg" alt="Animal Image" style="display: none;" />
+
+        <section id="animal-image" aria-label="Animal Image">
+            <div id="loading-text">Select an animal to see its image</div>
+            <img id="animal-img" src="allYapp/img/lion.svg" alt="Animal illustration" style="display: none;">
         </section>
     </main>
-    <footer role="contentinfo">
-        <p>Animal Sounds Soundboard © 2024</p>
+
+    <footer>
+        <p>Created with ❤️ for animal lovers everywhere</p>
+        <p>© 2024 Animal Sounds Soundboard. All rights reserved.</p>
     </footer>
-    <script type="module" src="allYapp/js/main.js"></script>
+
+    <script src="allYapp/js/main.js"></script>
 </body>
 </html>

@@ -1,149 +1,177 @@
-// Importing functions from utilities.js
-import { initializeSoundButtons, handleKeyboardEvents, addSoundButtons } from './utilities.js';
-
-// Sound and image data
-const soundData = {
-    LionRoar: {
-        audio: 'allYapp/audio/LionRoar.mp3',
-        image: 'allYapp/img/lion.svg',
-        name: 'Lion Roar'
-    },
-    ElephantTrumpet: {
-        audio: 'allYapp/audio/ElephantTrumpet.mp3',
-        image: 'allYapp/img/elephant.svg',
-        name: 'Elephant Trumpet'
-    },
-    DogBark: {
-        audio: 'allYapp/audio/DogBark.mp3',
-        image: 'allYapp/img/dog.svg',
-        name: 'Dog Bark'
-    },
-    CatMeow: {
-        audio: 'allYapp/audio/CatMeow.mp3',
-        image: 'allYapp/img/cat.svg',
-        name: 'Cat Meow'
-    },
-    BirdChirp: {
-        audio: 'allYapp/audio/BirdChirp.mp3',
-        image: 'allYapp/img/bird.svg',
-        name: 'Bird Chirp'
-    },
-    FrogCroak: {
-        audio: 'allYapp/audio/FrogCroak.mp3',
-        image: 'allYapp/img/frog.svg',
-        name: 'Frog Croak'
+// Soundboard configuration
+const SOUNDBOARD_CONFIG = {
+    sounds: {
+        lion: {
+            audio: 'allYapp/audio/LionRoar.mp3',
+            image: 'allYapp/img/lion.svg',
+            name: 'Lion Roar'
+        },
+        elephant: {
+            audio: 'allYapp/audio/ElephantTrumpet.mp3',
+            image: 'allYapp/img/elephant.svg',
+            name: 'Elephant Trumpet'
+        },
+        dog: {
+            audio: 'allYapp/audio/DogBark.mp3',
+            image: 'allYapp/img/dog.svg',
+            name: 'Dog Bark'
+        },
+        cat: {
+            audio: 'allYapp/audio/CatMeow.mp3',
+            image: 'allYapp/img/cat.svg',
+            name: 'Cat Meow'
+        },
+        bird: {
+            audio: 'allYapp/audio/BirdChirp.mp3',
+            image: 'allYapp/img/bird.svg',
+            name: 'Bird Chirp'
+        },
+        frog: {
+            audio: 'allYapp/audio/FrogCroak.mp3',
+            image: 'allYapp/img/frog.svg',
+            name: 'Frog Croak'
+        }
     }
 };
 
-// Audio context and elements
-let audioContext;
-let currentSound = null;
-const volumeSlider = document.getElementById('volume-slider');
-const soundButtons = document.querySelectorAll('.sound-button');
-const stopButton = document.getElementById('stopAllSounds');
-const animalImg = document.getElementById('animal-img');
-const loadingText = document.getElementById('loading-text');
-const soundNameBox = document.getElementById('sound-name');
-const liveRegion = document.getElementById('live-region');
+// State management
+const state = {
+    currentSound: null,
+    audioContext: null,
+    gainNode: null,
+    volume: 0.5,
+    isPlaying: false,
+    currentSource: null
+};
 
-// Initialize audio context
-function initAudioContext() {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+// DOM Elements
+const elements = {
+    soundButtons: document.querySelectorAll('.sound-button'),
+    stopButton: document.getElementById('stop-button'),
+    volumeSlider: document.getElementById('volume-slider'),
+    volumeValue: document.getElementById('volume-value'),
+    soundName: document.getElementById('sound-name'),
+    animalImg: document.getElementById('animal-img'),
+    loadingText: document.getElementById('loading-text')
+};
+
+// Initialize Web Audio API
+async function initAudioContext() {
+    try {
+        state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        state.gainNode = state.audioContext.createGain();
+        state.gainNode.connect(state.audioContext.destination);
+        await state.audioContext.resume();
+    } catch (error) {
+        console.error('Error initializing audio context:', error);
+        showError('Failed to initialize audio. Please try refreshing the page.');
+    }
 }
 
-// Play sound function
-async function playSound(soundId) {
+// Load and play sound
+async function playSound(soundKey) {
     try {
-        // Stop any currently playing sound
-        if (currentSound) {
-            currentSound.stop();
+        if (!state.audioContext) {
+            await initAudioContext();
         }
 
-        // Initialize audio context if needed
-        if (!audioContext) {
-            initAudioContext();
+        const sound = SOUNDBOARD_CONFIG.sounds[soundKey];
+        if (!sound) {
+            throw new Error('Sound not found');
         }
 
-        // Create and load audio buffer
-        const response = await fetch(soundData[soundId].audio);
+        // Stop current sound if playing
+        if (state.isPlaying) {
+            stopSound();
+        }
+
+        // Load and play new sound
+        const response = await fetch(sound.audio);
         const arrayBuffer = await response.arrayBuffer();
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        const audioBuffer = await state.audioContext.decodeAudioData(arrayBuffer);
         
-        // Create source and gain nodes
-        const source = audioContext.createBufferSource();
-        const gainNode = audioContext.createGain();
-        
-        // Set up audio nodes
+        const source = state.audioContext.createBufferSource();
         source.buffer = audioBuffer;
-        gainNode.gain.value = volumeSlider.value;
         
-        // Connect nodes
-        source.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        // Play sound
+        source.connect(state.gainNode);
         source.start(0);
-        currentSound = source;
+        state.isPlaying = true;
+        state.currentSound = soundKey;
+        state.currentSource = source;
 
         // Update UI
-        updateImage(soundId);
-        updateSoundName(soundData[soundId].name);
-        announceSound(soundData[soundId].name);
-
+        updateUI(sound);
     } catch (error) {
         console.error('Error playing sound:', error);
-        announceSound('Error playing sound');
+        showError('Failed to play sound. Please try again.');
     }
 }
 
-// Stop all sounds
-function stopAllSounds() {
-    if (currentSound) {
-        currentSound.stop();
-        currentSound = null;
+// Stop current sound
+function stopSound() {
+    if (state.isPlaying && state.currentSource) {
+        try {
+            state.currentSource.stop();
+            state.currentSource.disconnect();
+            state.currentSource = null;
+            state.isPlaying = false;
+            state.currentSound = null;
+            updateUI();
+        } catch (error) {
+            console.error('Error stopping sound:', error);
+            showError('Failed to stop sound. Please try again.');
+        }
     }
-    announceSound('All sounds stopped');
 }
 
-// Update image display
-function updateImage(soundId) {
-    loadingText.style.display = 'none';
-    animalImg.src = soundData[soundId].image;
-    animalImg.style.display = 'block';
+// Update UI elements
+function updateUI(sound = null) {
+    if (sound) {
+        elements.soundName.textContent = sound.name;
+        elements.animalImg.src = sound.image;
+        elements.animalImg.style.display = 'block';
+        elements.loadingText.style.display = 'none';
+    } else {
+        elements.soundName.textContent = 'Click an animal to hear its sound!';
+        elements.animalImg.style.display = 'none';
+        elements.loadingText.style.display = 'block';
+    }
 }
 
-// Update sound name display
-function updateSoundName(name) {
-    soundNameBox.textContent = name;
+// Update volume
+function updateVolume(value) {
+    state.volume = value / 100;
+    if (state.gainNode) {
+        state.gainNode.gain.value = state.volume;
+        elements.volumeValue.textContent = `${value}%`;
+    }
 }
 
-// Announce sound name for screen readers
-function announceSound(name) {
-    liveRegion.textContent = name;
+// Show error message
+function showError(message) {
+    elements.soundName.textContent = `Error: ${message}`;
+    elements.soundName.style.color = '#f44336';
+    setTimeout(() => {
+        elements.soundName.style.color = '';
+    }, 3000);
 }
 
-// Event listeners
-soundButtons.forEach(button => {
+// Event Listeners
+elements.soundButtons.forEach(button => {
     button.addEventListener('click', () => {
-        playSound(button.id);
+        const soundKey = button.dataset.sound;
+        playSound(soundKey);
     });
 });
 
-stopButton.addEventListener('click', stopAllSounds);
+elements.stopButton.addEventListener('click', stopSound);
 
-volumeSlider.addEventListener('input', (e) => {
-    if (currentSound) {
-        const gainNode = currentSound.gain;
-        if (gainNode) {
-            gainNode.gain.value = e.target.value;
-        }
-    }
+elements.volumeSlider.addEventListener('input', (e) => {
+    updateVolume(e.target.value);
 });
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     initAudioContext();
-    initializeSoundButtons();
-    document.addEventListener('keydown', handleKeyboardEvents); // Handling keyboard events
-    addSoundButtons(); // Add more sound buttons via JavaScript
+    updateUI();
 });
