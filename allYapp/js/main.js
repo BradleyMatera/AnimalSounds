@@ -4,56 +4,34 @@ import { initializeSoundButtons, handleKeyboardEvents, addSoundButtons } from '.
 // Sound and image data
 const soundData = {
     LionRoar: {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
-        audio: '/allYapp/audio/lion-roar.mp3',
-        image: '/allYapp/img/lion.jpg',
+        audio: 'allYapp/audio/LionRoar.mp3',
+        image: 'allYapp/img/lion.svg',
         name: 'Lion Roar'
     },
     ElephantTrumpet: {
-        audio: '/allYapp/audio/elephant-trumpet.mp3',
-        image: '/allYapp/img/elephant.jpg',
+        audio: 'allYapp/audio/ElephantTrumpet.mp3',
+        image: 'allYapp/img/elephant.svg',
         name: 'Elephant Trumpet'
     },
     DogBark: {
-        audio: '/allYapp/audio/dog-bark.mp3',
-        image: '/allYapp/img/dog.jpg',
-        name: 'Dog Bark'
-<<<<<<< HEAD
-=======
-=======
-        audio: '/allYapp/audio/LionRoar.mp3',
-        image: '/allYapp/img/lion.svg',
-        name: 'Lion Roar'
-    },
-    ElephantTrumpet: {
-        audio: '/allYapp/audio/ElephantTrumpet.mp3',
-        image: '/allYapp/img/elephant.svg',
-        name: 'Elephant Trumpet'
-    },
-    DogBark: {
-        audio: '/allYapp/audio/DogBark.mp3',
-        image: '/allYapp/img/dog.svg',
+        audio: 'allYapp/audio/DogBark.mp3',
+        image: 'allYapp/img/dog.svg',
         name: 'Dog Bark'
     },
     CatMeow: {
-        audio: '/allYapp/audio/CatMeow.mp3',
-        image: '/allYapp/img/cat.svg',
+        audio: 'allYapp/audio/CatMeow.mp3',
+        image: 'allYapp/img/cat.svg',
         name: 'Cat Meow'
     },
     BirdChirp: {
-        audio: '/allYapp/audio/BirdChirp.mp3',
-        image: '/allYapp/img/bird.svg',
+        audio: 'allYapp/audio/BirdChirp.mp3',
+        image: 'allYapp/img/bird.svg',
         name: 'Bird Chirp'
     },
     FrogCroak: {
-        audio: '/allYapp/audio/FrogCroak.mp3',
-        image: '/allYapp/img/frog.svg',
+        audio: 'allYapp/audio/FrogCroak.mp3',
+        image: 'allYapp/img/frog.svg',
         name: 'Frog Croak'
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
     }
 };
 
