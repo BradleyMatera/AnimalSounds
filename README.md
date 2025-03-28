@@ -12,13 +12,9 @@ The Animal Sounds Soundboard is a web application that allows users to play vari
 - 🔊 Adjust volume with a slider
 - ♿ Fully accessible with ARIA attributes and keyboard navigation
 - 📱 Responsive design for various screen sizes
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
 - 🚀 Automatic deployment to GitHub Pages
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+
 
 ## 💻 Technologies Used
 
@@ -31,8 +27,7 @@ The Animal Sounds Soundboard is a web application that allows users to play vari
 <<<<<<< HEAD
 =======
 - 🤖 GitHub Actions for automatic deployment
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
+
 
 ## 🚀 Getting Started
 
@@ -228,5 +223,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🤖 Automatic Deployment
 
 The site is automatically deployed to GitHub Pages whenever changes are pushed to the main branch using GitHub Actions.
->>>>>>> 72db770 (Initial commit: Animal Sounds Soundboard)
->>>>>>> 9844694 (Initial commit: Animal Sounds Soundboard with GitHub Actions and updated README)
