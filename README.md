@@ -212,10 +212,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Animal sounds from [FreeSound](https://freeanimalsounds.org/)
 - Images provided by [Pexels](https://www.pexels.com/)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
 ## 🤖 Automatic Deployment
 
