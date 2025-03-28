@@ -22,10 +22,7 @@ The Animal Sounds Soundboard is a web application that allows users to play vari
 - 🎨 CSS3
 - 📝 JavaScript (ES6+)
 - 📷 Pexels API for images
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
 - 🤖 GitHub Actions for automatic deployment
 
 
