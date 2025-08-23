@@ -1,71 +1,72 @@
-# 🦁 Animal Sounds Soundboard
+# 🦁 Animal Sounds Soundboard (Demo)  
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white&style=for-the-badge)]()  
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&style=for-the-badge)]()  
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)]()  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)  
+
+> A **demo soundboard web app** that plays animal sounds, displays images via the **Pexels API**, and is fully accessible (ARIA/WCAG compliant).  
+
+---
 
 ## 📝 Overview
+- 🎶 Play animal sounds  
+- 🖼️ Display images fetched from Pexels API  
+- ⏹️ Stop all sounds with one button  
+- 🔊 Adjustable volume slider  
+- ♿ Screen reader + keyboard accessible  
+- 📱 Responsive across devices  
+- 🚀 Auto-deployed to **GitHub Pages** via GitHub Actions  
 
-The Animal Sounds Soundboard is a web application that allows users to play various animal sounds and view corresponding animal images. This application is designed to be highly accessible, adhering to WCAG and ARIA standards to ensure a great experience for all users.
-
-## ✨ Features
-
-- 🎶 Play different animal sounds
-- 🖼️ View corresponding animal images fetched from the Pexels API
-- ⏹️ Stop all sounds with a single button
-- 🔊 Adjust volume with a slider
-- ♿ Fully accessible with ARIA attributes and keyboard navigation
-- 📱 Responsive design for various screen sizes
-
-- 🚀 Automatic deployment to GitHub Pages
-
+---
 
 ## 💻 Technologies Used
+- 🌐 HTML5  
+- 🎨 CSS3  
+- 📝 JavaScript (ES6+)  
+- 📷 Pexels API for animal images  
+- 🤖 GitHub Actions for deployment  
 
-- 🌐 HTML5
-- 🎨 CSS3
-- 📝 JavaScript (ES6+)
-- 📷 Pexels API for images
-
-- 🤖 GitHub Actions for automatic deployment
-
+---
 
 ## 🚀 Getting Started
 
 ### 📋 Prerequisites
-
-- 🖥️ A modern web browser
-- 🔑 A Pexels API key (for fetching images)
+- Modern browser  
+- [Pexels API Key](https://www.pexels.com/api/)  
 
 ### 📥 Installation
+```bash
+# Clone repo
+git clone https://github.com/your-username/animal-sounds-soundboard.git
+cd animal-sounds-soundboard
+```
 
-Clone the repository:
-    git clone https://github.com/your-username/animal-sounds-soundboard.git
+Add your API key in `js/config.js`:  
+```javascript
+const CONFIG = {
+  PEXELS_API_KEY: 'YOUR_PEXELS_API_KEY',
+  PEXELS_API_URL: 'https://api.pexels.com/v1/search'
+};
+```
 
-Navigate to the project directory:
-    cd animal-sounds-soundboard
+Add to `.gitignore`:  
+```
+js/config.js
+```
 
-Add your Pexels API key:
-Create a file named `config.js` inside the `js` directory with the following content:
-    ```javascript
-    const CONFIG = {
-      PEXELS_API_KEY: 'YOUR_PEXELS_API_KEY',
-      PEXELS_API_URL: 'https://api.pexels.com/v1/search'
-    };
-    ```
-
-Add `config.js` to .gitignore to keep your API key secure:
-Add the following line to your `.gitignore` file:
-    js/config.js
+---
 
 ## 🛠️ Usage
+- Open `index.html` in a browser  
+- Click or use keyboard to play sounds + fetch images  
+- Use **Stop All Sounds** button to halt playback  
+- Adjust volume with slider  
 
-Open `index.html` in a web browser.
-Click on the animal sound buttons or use keyboard navigation to play sounds and view images.
-Use the "Stop All Sounds" button to stop any playing sounds.
-Adjust the volume using the volume slider.
+---
 
 ## 🗂️ File Structure
-
-```
+```plaintext
 animal-sounds-soundboard/
-│
 ├── audio/
 │   ├── lion.mp3
 │   ├── elephant.mp3
@@ -73,146 +74,92 @@ animal-sounds-soundboard/
 │   ├── cat.mp3
 │   ├── bird.mp3
 │   └── frog.mp3
-│
 ├── css/
 │   └── styles.css
-│
 ├── js/
 │   ├── main.js
 │   ├── utilities.js
 │   └── config.js
-│
 ├── index.html
 ├── favicon.ico
 └── README.md
 ```
 
-## 📊 Application Development Checklist
+---
+
+## 📊 Development Checklist
 
 ### 📄 Content
+- Semantic HTML (header, main, footer)  
+- Buttons + labels for soundboard  
+- Animal images with descriptive alt text  
+- Volume slider + stop button  
 
-🔹 HTML Content:
-- All required sections (header, main, footer) are present.
-- Soundboard section with labeled buttons.
-- Animal image section with descriptive text.
-- Volume control and stop button included.
+### 🔧 Functionality
+- Play/stop sounds  
+- Fetch/display Pexels images  
+- Keyboard + ARIA accessible  
+- Announcements via ARIA live regions  
 
-🔹 JavaScript Content:
-- Initialization of sound buttons.
-- Functions to handle playing sounds, fetching images, stopping sounds, and adjusting volume.
-- Handling keyboard events for navigation and interaction.
-
-### 🔧 Feature Functionality
-
-🔹 All requested functionality present:
-- Play sound on button click.
-- Fetch and display animal images from API.
-- Stop all sounds with a single button.
-- Adjust volume with a slider.
-- Keyboard navigation through buttons.
-- ARIA live regions to announce actions.
-
-### 📚 Coding Standards
-
-🔹 Exceeds Best Practices and Standards:
-- Modular JavaScript code with clear functions.
-- Use of ARIA roles and labels for accessibility.
-- Consistent coding style and indentation.
-- Descriptive variable and function names.
+### 📚 Standards
+- Modular JS with functions  
+- Consistent formatting  
+- Semantic HTML + ARIA roles  
 
 ### ♿ Accessibility
-
-🔹 Screen Reader and Keyboard Controls Optimized:
-- ARIA roles and labels for all interactive elements.
-- ARIA live regions to announce button actions.
-- Focus management for keyboard navigation.
-- Volume control accessible via keyboard.
+- ARIA roles/labels for all elements  
+- Screen reader compatible  
+- Full keyboard navigation  
+- Volume slider keyboard operable  
 
 ### 🧠 Logic
-
-🔹 Efficient Application of Code:
-- Clear thought in event handling and DOM manipulation.
-- Efficient fetching of images with error handling.
-- Modular approach with reusable functions.
-- Logical flow for playing, stopping sounds, and displaying images.
+- Efficient event handling  
+- Clear DOM manipulation  
+- Error handling for API fetches  
 
 ### 📖 Clarity
-
-🔹 Self-documenting Code:
-- Clear and descriptive comments for functions.
-- Code is easy to understand with meaningful names.
-- Logical grouping of related functions.
-- Consistent formatting and indentation.
+- Self-documented with comments  
+- Consistent, meaningful names  
 
 ### 🌐 Environment
+- Version control with meaningful commits  
+- Responsive design CSS  
+- Error-free execution  
 
-🔹 Version Control:
-- Small, meaningful commits.
-- Descriptive commit messages.
-- Commits related to specific features or fixes.
+---
 
-🔹 HTML:
-- Proper use of semantic elements (header, main, section, footer).
-- Meaningful use of ARIA roles and labels.
-- Correct structure and hierarchy of HTML elements.
+## 🔍 Steps Taken
+- Semantic HTML structure with ARIA roles  
+- Styled buttons/sliders with focus states  
+- Modular JS with reusable functions  
+- Screen reader support + ARIA live regions  
+- Small, descriptive commits  
+- Thorough testing, error handling  
 
-🔹 CSS:
-- Consistent use of classes and IDs.
-- Organized and modular CSS with clear sections.
-- Responsive design considerations.
-- Styling for focus states and interactivity.
-
-🔹 Error Handling:
-- Application runs without any runtime errors.
-- Proper error handling in JavaScript.
-- No console errors related to application functionality.
-
-## 🔍 Detailed Steps Taken
-
-🔹 HTML:
-- Added semantic HTML structure with appropriate elements (header, main, section, footer).
-- Used ARIA roles and labels to enhance accessibility.
-- Included a volume control slider and stop button for user interaction.
-
-🔹 CSS:
-- Styled all interactive elements, including buttons and sliders.
-- Ensured focus states for better accessibility.
-- Organized CSS into modular sections for clarity.
-
-🔹 JavaScript:
-- Created modular functions for initializing buttons, playing sounds, fetching images, and handling keyboard events.
-- Added event listeners for buttons and volume control.
-- Implemented ARIA live regions to announce actions for screen readers.
-- Managed focus for keyboard navigation.
-
-🔹 Accessibility Enhancements:
-- Added ARIA labels and roles for all interactive elements.
-- Ensured screen reader compatibility with ARIA live regions.
-- Made the volume control accessible via keyboard.
-
-🔹 Version Control:
-- Used meaningful commit messages to document changes.
-- Commits were small and specific to features or fixes.
-- Maintained a clean history of commits.
-
-🔹 Testing and Debugging:
-- Ensured no runtime errors by testing the application thoroughly.
-- Handled errors gracefully in JavaScript, especially when fetching images.
-- Verified keyboard navigation and screen reader announcements.
+---
 
 ## 🤝 Contributing
+Contributions welcome → fork repo, branch, PR.  
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+---
 
 ## 📄 License
+MIT License → see [LICENSE](LICENSE).  
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+---
 
 ## 🙏 Acknowledgements
+- Sounds: [FreeAnimalSounds](https://freeanimalsounds.org/)  
+- Images: [Pexels](https://www.pexels.com/)  
 
-- Animal sounds from [FreeSound](https://freeanimalsounds.org/)
-- Images provided by [Pexels](https://www.pexels.com/)
+---
 
-## 🤖 Automatic Deployment
+## 🚀 Deployment
+- Auto-deployed to **GitHub Pages** with GitHub Actions on push to main branch.  
 
-The site is automatically deployed to GitHub Pages whenever changes are pushed to the main branch using GitHub Actions.
+---
+
+## 📬 Contact (Demo Owner)
+- **Email**: matera.bradley@gmail.com  
+- **GitHub**: [BradleyMatera](https://github.com/BradleyMatera)  
+- **LinkedIn**: [Brad Matera](https://www.linkedin.com/in/championingempatheticwebsolutionsthroughcode/)  
