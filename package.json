@@ -4,17 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+  "build": "NEXT_DISABLE_PEXELS_API=1 next build",
+  "postbuild": "bun scripts/postbuild.mjs",
+    "start": "bunx --bun serve -s out",
+    "preview": "bunx --bun serve -s out",
     "lint": "next lint",
     "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.6",
     "@nextui-org/theme": "^2.2.6",
-  "framer-motion": "^11.0.3",
-  "next-themes": "^0.3.0",
+    "framer-motion": "^11.0.3",
     "next": "^14.2.3",
+    "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "swr": "^2.2.4"

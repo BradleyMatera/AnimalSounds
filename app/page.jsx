@@ -18,6 +18,8 @@ const DEFAULT_STATS = {
   favoriteCount: 0,
   lastPlayed: null
 };
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "") || "";
+const ENABLE_IMAGE_ENRICHMENT = process.env.NEXT_PUBLIC_ENABLE_PEXELS === "true";
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("");
@@ -121,7 +123,7 @@ export default function HomePage() {
         return;
       }
 
-      const audio = new Audio(animal.audio);
+  const audio = new Audio(`${BASE_PATH}${animal.audio}`);
       audioRef.current = audio;
       audio.play().catch((error) => console.warn("[audio] playback failed", error));
       audio.onended = () => {
@@ -149,6 +151,10 @@ export default function HomePage() {
   );
 
   const loadImages = useCallback(async (signal) => {
+    if (!ENABLE_IMAGE_ENRICHMENT) {
+      return;
+    }
+
     await Promise.all(
       animals.map(async (animal) => {
         try {

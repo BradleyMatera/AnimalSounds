@@ -70,7 +70,10 @@ public/
 
 | Variable | Description |
 |----------|-------------|
-| `PEXELS_API_KEY` | Optional key for enriching cards with live Pexels photography. |
+| `PEXELS_API_KEY` | Optional key for enriching cards with live Pexels photography (only used when enrichment enabled). |
+| `NEXT_PUBLIC_ENABLE_PEXELS` | Set to `true` to fetch photos from the Pexels API route during development. Leave unset/`false` for static deployments. |
+| `NEXT_PUBLIC_BASE_PATH` | Optional override for the GitHub Pages base path (auto-detected in GitHub Actions). |
+| `NEXT_DISABLE_PEXELS_API` | Automatically set to `1` during `bun run build` so the static export skips the server-side Pexels proxy. Leave unset when running `bun run dev`. |
 
 Create `.env.local` from `.env.example`. Without a key the UI continues to rely on bundled imagery.
 
@@ -88,6 +91,28 @@ Create `.env.local` from `.env.example`. Without a key the UI continues to rely 
 - 📈 Optional cloud sync for analytics and favorites
 - 🔊 Spatial audio + waveform visualizations
 - 🌍 Internationalization and localized content
+
+## Deployment
+
+1. **Set the base path** for GitHub Pages by adding `NEXT_PUBLIC_BASE_PATH=/Animal-Sounds` when building outside GitHub Actions. The CI workflow auto-detects this value from `GITHUB_REPOSITORY`.
+
+    - Static exports disable Pexels enrichment automatically via `NEXT_DISABLE_PEXELS_API=1`. For local enrichment, leave that unset and configure `NEXT_PUBLIC_ENABLE_PEXELS=true` along with a `PEXELS_API_KEY`.
+
+1. **Build the static site**:
+
+    ```bash
+    bun run build
+    ```
+
+    The exported site is written to the `out/` directory and automatically gets a `.nojekyll` file for Pages.
+
+1. **Preview locally (optional)**:
+
+    ```bash
+    bun run preview
+    ```
+
+1. **Publish** the contents of `out/` to the `gh-pages` branch (or enable Pages on the `out` folder in GitHub Actions). Set the Pages source to that branch in the repository settings.
 
 ## Contributing
 
