@@ -69,6 +69,13 @@ user-content/
 # Package manager files
 package-lock.json
 yarn.lock
+bun.lockb
+
+# Bun cache
+.bun/
+
+# Next.js build output
+.next/
 
 # Runtime data
 pids

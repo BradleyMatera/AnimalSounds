@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(248 250 252);
+}
+
+[data-theme='dark'] body {
+  background-color: rgb(15 23 42);
+}
+
+main {
+  min-height: 100vh;
+}
