@@ -1153,19 +1153,38 @@ export class KeyboardManager extends EventEmitter {
 
 /**
  * Analytics Manager - Tracks usage statistics
+ * Simplified version without EventEmitter inheritance to avoid conflicts
  */
-export class AnalyticsManager extends EventEmitter {
+export class AnalyticsManager {
     constructor() {
-        super();
         this.analyticsEvents = [];
         this.sessionStart = Date.now();
         this.storageKey = 'animal-sounds-analytics';
+        this.eventListeners = new Map();
+    }
+
+    // Simple event handling without inheritance
+    on(event, callback) {
+        if (!this.eventListeners.has(event)) {
+            this.eventListeners.set(event, []);
+        }
+        this.eventListeners.get(event).push(callback);
+    }
+
+    emit(event, data) {
+        if (this.eventListeners.has(event)) {
+            this.eventListeners.get(event).forEach(callback => {
+                try {
+                    callback(data);
+                } catch (error) {
+                    console.error(`Error in analytics event callback for ${event}:`, error);
+                }
+            });
+        }
     }
 
     async init() {
         console.log('📊 Initializing Analytics Manager...');
-        console.log('🔍 Events type:', typeof this.events, this.events);
-        console.log('🔍 Analytics events type:', typeof this.analyticsEvents, this.analyticsEvents);
         
         this.loadStoredData();
         this.trackSession();

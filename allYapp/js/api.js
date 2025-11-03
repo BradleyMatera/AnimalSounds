@@ -73,8 +73,10 @@ export class ImageAPI {
     async init() {
         console.log('🖼️ Initializing Image API...');
         
-        this.setupNetworkListeners();
-        this.preloadFallbackImages();
+        // Initialize metrics and settings
+        this.setupEventListeners();
+        // Temporarily disable fallback image preloading
+        // this.preloadFallbackImages();
         
         console.log('✅ Image API initialized');
     }
