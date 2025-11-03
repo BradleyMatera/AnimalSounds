@@ -94,9 +94,16 @@ export class ImageAPI {
 
     preloadFallbackImages() {
         // Preload fallback images to ensure they're available immediately
-        Object.values(this.fallbackImages).forEach(fallback => {
-            const img = new Image();
-            img.src = fallback.url;
+        console.log('🖼️ Preloading fallback images...');
+        Object.entries(this.fallbackImages).forEach(([animal, fallback]) => {
+            try {
+                const img = new Image();
+                img.onload = () => console.log(`✅ Fallback image loaded: ${animal}`);
+                img.onerror = (error) => console.warn(`❌ Failed to load fallback for ${animal}:`, error);
+                img.src = fallback.url;
+            } catch (error) {
+                console.warn(`❌ Error creating fallback image for ${animal}:`, error);
+            }
         });
     }
 

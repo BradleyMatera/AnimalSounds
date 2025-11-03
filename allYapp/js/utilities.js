@@ -1164,6 +1164,8 @@ export class AnalyticsManager extends EventEmitter {
 
     async init() {
         console.log('📊 Initializing Analytics Manager...');
+        console.log('🔍 Events type:', typeof this.events, this.events);
+        console.log('🔍 Analytics events type:', typeof this.analyticsEvents, this.analyticsEvents);
         
         this.loadStoredData();
         this.trackSession();
