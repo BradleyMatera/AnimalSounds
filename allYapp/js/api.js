@@ -20,40 +20,40 @@ export class ImageAPI {
         this.lastRequestTime = 0;
         this.rateLimitDelay = 1000; // 1 second between requests
         
-        // Fallback images for each animal
+        // Fallback images for each animal - using simple SVG without emoji
         this.fallbackImages = {
             lion: {
-                url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRkI3NEQiLz48dGV4dCB4PSIyMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjY0IiBmaWxsPSJ3aGl0ZSI+🦁</dGV4dD48L3N2Zz4=',
+                url: 'data:image/svg+xml;charset=utf-8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="%23FFB74D"/><text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="48" fill="white">LION</text></svg>',
                 title: 'Lion - King of the Jungle',
                 photographer: 'Animal Sounds Team',
                 alt: 'Majestic lion illustration'
             },
             elephant: {
-                url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiM5MEE0QUUiLz48dGV4dCB4PSIyMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjY0IiBmaWxsPSJ3aGl0ZSI+🐘</dGV4dD48L3N2Zz4=',
+                url: 'data:image/svg+xml;charset=utf-8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="%2390A4AE"/><text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="36" fill="white">ELEPHANT</text></svg>',
                 title: 'Elephant - Gentle Giant',
                 photographer: 'Animal Sounds Team',
                 alt: 'Wise elephant illustration'
             },
             dog: {
-                url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNCQ0FBQTQiLz48dGV4dCB4PSIyMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjY0IiBmaWxsPSJ3aGl0ZSI+🐕</dGV4dD48L3N2Zz4=',
+                url: 'data:image/svg+xml;charset=utf-8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="%23BCAAA4"/><text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="48" fill="white">DOG</text></svg>',
                 title: 'Dog - Loyal Companion',
                 photographer: 'Animal Sounds Team',
                 alt: 'Friendly dog illustration'
             },
             cat: {
-                url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNDRTkzRDgiLz48dGV4dCB4PSIyMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjY0IiBmaWxsPSJ3aGl0ZSI+🐱</dGV4dD48L3N2Zz4=',
+                url: 'data:image/svg+xml;charset=utf-8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="%23CE93D8"/><text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="48" fill="white">CAT</text></svg>',
                 title: 'Cat - Independent Spirit',
                 photographer: 'Animal Sounds Team',
                 alt: 'Graceful cat illustration'
             },
             bird: {
-                url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiM4MUM3ODQiLz48dGV4dCB4PSIyMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjY0IiBmaWxsPSJ3aGl0ZSI+🐦</dGV4dD48L3N2Zz4=',
+                url: 'data:image/svg+xml;charset=utf-8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="%2381C784"/><text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="48" fill="white">BIRD</text></svg>',
                 title: 'Bird - Freedom in Flight',
                 photographer: 'Animal Sounds Team',
                 alt: 'Beautiful bird illustration'
             },
             frog: {
-                url: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNBRUQ1ODEiLz48dGV4dCB4PSIyMDAiIHk9IjIwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjY0IiBmaWxsPSJ3aGl0ZSI+🐸</dGV4dD48L3N2Zz4=',
+                url: 'data:image/svg+xml;charset=utf-8,<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="%23AED581"/><text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="48" fill="white">FROG</text></svg>',
                 title: 'Frog - Pond Dweller',
                 photographer: 'Animal Sounds Team',
                 alt: 'Cheerful frog illustration'

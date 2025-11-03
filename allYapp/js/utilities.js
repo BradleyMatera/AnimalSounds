@@ -1157,7 +1157,7 @@ export class KeyboardManager extends EventEmitter {
 export class AnalyticsManager extends EventEmitter {
     constructor() {
         super();
-        this.events = [];
+        this.analyticsEvents = [];
         this.sessionStart = Date.now();
         this.storageKey = 'animal-sounds-analytics';
     }
@@ -1176,7 +1176,7 @@ export class AnalyticsManager extends EventEmitter {
             const stored = localStorage.getItem(this.storageKey);
             if (stored) {
                 const data = JSON.parse(stored);
-                this.events = data.events || [];
+                this.analyticsEvents = data.events || [];
             }
         } catch (error) {
             console.warn('Failed to load analytics data:', error);
@@ -1186,7 +1186,7 @@ export class AnalyticsManager extends EventEmitter {
     saveData() {
         try {
             const data = {
-                events: this.events.slice(-1000), // Keep last 1000 events
+                events: this.analyticsEvents.slice(-1000), // Keep last 1000 events
                 lastUpdated: Date.now()
             };
             localStorage.setItem(this.storageKey, JSON.stringify(data));
@@ -1203,7 +1203,7 @@ export class AnalyticsManager extends EventEmitter {
             sessionId: this.sessionStart
         };
         
-        this.events.push(event);
+        this.analyticsEvents.push(event);
         this.saveData();
         
         // Emit for real-time tracking
@@ -1226,10 +1226,10 @@ export class AnalyticsManager extends EventEmitter {
         const oneDay = 24 * 60 * 60 * 1000;
         const oneWeek = 7 * oneDay;
         
-        const todayEvents = this.events.filter(e => now - e.timestamp < oneDay);
-        const weekEvents = this.events.filter(e => now - e.timestamp < oneWeek);
+        const todayEvents = this.analyticsEvents.filter(e => now - e.timestamp < oneDay);
+        const weekEvents = this.analyticsEvents.filter(e => now - e.timestamp < oneWeek);
         
-        const soundPlays = this.events.filter(e => e.name === 'sound_played');
+        const soundPlays = this.analyticsEvents.filter(e => e.name === 'sound_played');
         const animalCounts = {};
         
         soundPlays.forEach(event => {
@@ -1238,7 +1238,7 @@ export class AnalyticsManager extends EventEmitter {
         });
         
         return {
-            totalEvents: this.events.length,
+            totalEvents: this.analyticsEvents.length,
             todayEvents: todayEvents.length,
             weekEvents: weekEvents.length,
             totalSoundPlays: soundPlays.length,
