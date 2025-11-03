@@ -55,12 +55,12 @@ export class SoundManager extends EventEmitter {
         
         // Sound configurations
         this.soundConfigs = {
-            LionRoar: { path: '/allYapp/audio/LionRoar.mp3', animal: 'lion', preload: true },
-            ElephantTrumpet: { path: '/allYapp/audio/ElephantTrumpet.mp3', animal: 'elephant', preload: true },
-            DogBark: { path: '/allYapp/audio/DogBark.mp3', animal: 'dog', preload: true },
-            CatMeow: { path: '/allYapp/audio/CatMeow.mp3', animal: 'cat', preload: false },
-            BirdChirp: { path: '/allYapp/audio/BirdChirp.mp3', animal: 'bird', preload: false },
-            FrogCroak: { path: '/allYapp/audio/FrogCroak.mp3', animal: 'frog', preload: false }
+            LionRoar: { path: './allYapp/audio/LionRoar.mp3', animal: 'lion', preload: true },
+            ElephantTrumpet: { path: './allYapp/audio/ElephantTrumpet.mp3', animal: 'elephant', preload: true },
+            DogBark: { path: './allYapp/audio/DogBark.mp3', animal: 'dog', preload: true },
+            CatMeow: { path: './allYapp/audio/CatMeow.mp3', animal: 'cat', preload: false },
+            BirdChirp: { path: './allYapp/audio/BirdChirp.mp3', animal: 'bird', preload: false },
+            FrogCroak: { path: './allYapp/audio/FrogCroak.mp3', animal: 'frog', preload: false }
         };
     }
 

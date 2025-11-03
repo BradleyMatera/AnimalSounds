@@ -4,24 +4,24 @@ const DYNAMIC_CACHE_NAME = 'animal-sounds-dynamic-v1.0.0';
 
 // Files to cache immediately
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/allYapp/css/styles.css',
-  '/allYapp/js/main.js',
-  '/allYapp/js/utilities.js',
-  '/allYapp/js/api.js',
+  './',
+  './index.html',
+  './manifest.json',
+  './allYapp/css/styles.css',
+  './allYapp/js/main.js',
+  './allYapp/js/utilities.js',
+  './allYapp/js/api.js',
   // Add your audio files here
-  '/allYapp/audio/lion.mp3',
-  '/allYapp/audio/elephant.mp3',
-  '/allYapp/audio/monkey.mp3',
-  '/allYapp/audio/bird.mp3',
-  '/allYapp/audio/wolf.mp3',
-  '/allYapp/audio/cat.mp3',
-  '/allYapp/audio/dog.mp3',
-  '/allYapp/audio/cow.mp3',
-  '/allYapp/audio/horse.mp3',
-  '/allYapp/audio/pig.mp3'
+  './allYapp/audio/lion.mp3',
+  './allYapp/audio/elephant.mp3',
+  './allYapp/audio/monkey.mp3',
+  './allYapp/audio/bird.mp3',
+  './allYapp/audio/wolf.mp3',
+  './allYapp/audio/cat.mp3',
+  './allYapp/audio/dog.mp3',
+  './allYapp/audio/cow.mp3',
+  './allYapp/audio/horse.mp3',
+  './allYapp/audio/pig.mp3'
 ];
 
 // Network timeout for dynamic requests
@@ -145,7 +145,7 @@ async function handleStaticAsset(request) {
     
     // Return offline fallback if available
     if (request.destination === 'document') {
-      return caches.match('/index.html');
+      return caches.match('./index.html');
     }
     
     throw error;
@@ -205,7 +205,7 @@ async function handleNavigation(request) {
     return networkResponse;
   } catch (error) {
     console.warn('[SW] Navigation failed, serving cached index:', error);
-    return caches.match('/index.html');
+    return caches.match('./index.html');
   }
 }
 
