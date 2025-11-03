@@ -1227,8 +1227,8 @@ export class AnalyticsManager {
         this.analyticsEvents.push(event);
         this.saveData();
         
-        // Emit for real-time tracking
-        this.emit('eventTracked', event);
+        // Note: Real-time tracking removed to avoid EventEmitter conflicts
+        // this.emit('eventTracked', event);
         
         console.log(`📊 Tracked: ${eventName}`, data);
     }

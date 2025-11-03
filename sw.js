@@ -1,6 +1,6 @@
-const CACHE_NAME = 'animal-sounds-v1.0.2';
-const STATIC_CACHE_NAME = 'animal-sounds-static-v1.0.2';
-const DYNAMIC_CACHE_NAME = 'animal-sounds-dynamic-v1.0.2';
+const CACHE_NAME = 'animal-sounds-v1.0.3';
+const STATIC_CACHE_NAME = 'animal-sounds-static-v1.0.3';
+const DYNAMIC_CACHE_NAME = 'animal-sounds-dynamic-v1.0.3';
 
 // Files to cache immediately
 const STATIC_ASSETS = [
@@ -31,20 +31,31 @@ const NETWORK_TIMEOUT = 3000;
 self.addEventListener('install', event => {
   console.log('[SW] Install event');
   
-  event.waitUntil(
-    caches.open(STATIC_CACHE_NAME)
-      .then(cache => {
-        console.log('[SW] Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
-      })
-      .then(() => {
-        console.log('[SW] Static assets cached successfully');
-        return self.skipWaiting();
-      })
-      .catch(error => {
-        console.error('[SW] Failed to cache static assets:', error);
-      })
-  );
+  event.waitUntil((async () => {
+    try {
+      const cache = await caches.open(STATIC_CACHE_NAME);
+      console.log('[SW] Caching static assets');
+
+      for (const asset of STATIC_ASSETS) {
+        try {
+          const response = await fetch(asset, { cache: 'no-cache' });
+
+          if (response.ok && response.status === 200) {
+            await cache.put(asset, response.clone());
+          } else {
+            console.warn(`[SW] Skipping cache for ${asset}: ${response.status}`);
+          }
+        } catch (assetError) {
+          console.warn(`[SW] Failed to cache ${asset}:`, assetError.message);
+        }
+      }
+
+      await self.skipWaiting();
+      console.log('[SW] Static assets cached successfully');
+    } catch (error) {
+      console.error('[SW] Failed during install:', error);
+    }
+  })());
 });
 
 // Activate event - clean up old caches
@@ -126,6 +137,12 @@ function isAPIRequest(url) {
 // Handle static assets - cache first
 async function handleStaticAsset(request) {
   try {
+    // Skip chrome-extension and other non-cacheable schemes
+    const url = new URL(request.url);
+    if (url.protocol === 'chrome-extension:' || url.protocol === 'moz-extension:') {
+      return fetch(request);
+    }
+
     const cache = await caches.open(STATIC_CACHE_NAME);
     const cachedResponse = await cache.match(request);
     
@@ -135,8 +152,14 @@ async function handleStaticAsset(request) {
     
     const networkResponse = await fetch(request);
     
-    if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone());
+    // Only cache successful, complete responses
+    if (networkResponse.ok && networkResponse.status === 200) {
+      try {
+        await cache.put(request, networkResponse.clone());
+      } catch (cacheError) {
+        console.warn('[SW] Could not cache response:', cacheError.message);
+        // Continue without caching
+      }
     }
     
     return networkResponse;
@@ -212,6 +235,12 @@ async function handleNavigation(request) {
 // Default handler - cache first
 async function handleDefault(request) {
   try {
+    // Skip chrome-extension and other non-cacheable schemes
+    const url = new URL(request.url);
+    if (url.protocol === 'chrome-extension:' || url.protocol === 'moz-extension:') {
+      return fetch(request);
+    }
+
     const cache = await caches.open(DYNAMIC_CACHE_NAME);
     const cachedResponse = await cache.match(request);
     
@@ -219,8 +248,12 @@ async function handleDefault(request) {
       // Serve from cache and update in background
       fetch(request)
         .then(networkResponse => {
-          if (networkResponse.ok) {
-            cache.put(request, networkResponse.clone());
+          if (networkResponse.ok && networkResponse.status === 200) {
+            try {
+              cache.put(request, networkResponse.clone());
+            } catch (cacheError) {
+              console.warn('[SW] Background cache update failed:', cacheError.message);
+            }
           }
         })
         .catch(() => {}); // Ignore background update errors
@@ -230,8 +263,14 @@ async function handleDefault(request) {
     
     const networkResponse = await fetch(request);
     
-    if (networkResponse.ok) {
-      cache.put(request, networkResponse.clone());
+    // Only cache successful, complete responses
+    if (networkResponse.ok && networkResponse.status === 200) {
+      try {
+        await cache.put(request, networkResponse.clone());
+      } catch (cacheError) {
+        console.warn('[SW] Could not cache response:', cacheError.message);
+        // Continue without caching
+      }
     }
     
     return networkResponse;
