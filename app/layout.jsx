@@ -1,8 +1,12 @@
 import "./globals.css";
 import Providers from "@/components/providers";
+import { basePath, withBasePath } from "@/lib/base-path";
+
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+const metadataBaseUrl = `${siteUrl}${basePath}`;
 
 export const metadata = {
-  metadataBase: new URL("https://animal-sounds.local"),
+  metadataBase: new URL(metadataBaseUrl),
   title: {
     default: "Animal Sounds Soundboard",
     template: "%s | Animal Sounds"
@@ -20,11 +24,11 @@ export const metadata = {
     title: "Animal Sounds Soundboard",
     description:
       "Discover a beautifully designed animal soundboard powered by Next.js, Bun, and NextUI.",
-    url: "https://animal-sounds.local",
+    url: metadataBaseUrl,
     siteName: "Animal Sounds",
     images: [
       {
-        url: "/images/lion.jpg",
+        url: withBasePath("/images/lion.jpg"),
         width: 1200,
         height: 630,
         alt: "Animal Sounds Soundboard preview"
@@ -38,7 +42,7 @@ export const metadata = {
     title: "Animal Sounds Soundboard",
     description:
       "Experience immersive wildlife audio powered by Next.js, Bun, and NextUI",
-  images: ["/images/lion.jpg"],
+    images: [withBasePath("/images/lion.jpg")],
     creator: "@animalsounds"
   }
 };

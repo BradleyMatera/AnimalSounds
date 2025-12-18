@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarGroup, Button, Card, CardBody } from "@nextui-org/react";
+import { withBasePath } from "@/lib/base-path";
 
 export default function FavoritesBar({ favorites, onClear }) {
   if (!favorites.length) {
@@ -18,7 +19,12 @@ export default function FavoritesBar({ favorites, onClear }) {
         </div>
         <AvatarGroup max={6} size="sm">
           {favorites.map((animal) => (
-            <Avatar key={animal.id} name={animal.name} src={animal.fallbackImage} radius="md" />
+            <Avatar
+              key={animal.id}
+              name={animal.name}
+              src={withBasePath(animal.fallbackImage)}
+              radius="md"
+            />
           ))}
         </AvatarGroup>
         <Button variant="flat" color="danger" size="sm" onPress={onClear} className="ml-auto">

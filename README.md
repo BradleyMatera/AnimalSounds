@@ -73,6 +73,7 @@ public/
 | `PEXELS_API_KEY` | Optional key for enriching cards with live Pexels photography (only used when enrichment enabled). |
 | `NEXT_PUBLIC_ENABLE_PEXELS` | Set to `true` to fetch photos from the Pexels API route during development. Leave unset/`false` for static deployments. |
 | `NEXT_PUBLIC_BASE_PATH` | Optional override for the GitHub Pages base path (auto-detected in GitHub Actions). |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site origin for metadata (e.g. `https://bradleymatera.github.io`). |
 | `NEXT_DISABLE_PEXELS_API` | Automatically set to `1` during `bun run build` so the static export skips the server-side Pexels proxy. Leave unset when running `bun run dev`. |
 
 Create `.env.local` from `.env.example`. Without a key the UI continues to rely on bundled imagery.
@@ -125,4 +126,3 @@ Issues and PRs are welcome! Please:
 ## License
 
 MIT © Bradley Matera
-

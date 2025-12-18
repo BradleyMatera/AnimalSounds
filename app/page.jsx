@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Divider } from "@nextui-org/react";
 import animals, { continents } from "@/data/animals";
+import { withBasePath } from "@/lib/base-path";
 import { loadEvents, recordEvent, summarize } from "@/lib/analytics";
 import AppNavbar from "@/components/navbar";
 import Hero from "@/components/hero";
@@ -18,8 +19,8 @@ const DEFAULT_STATS = {
   favoriteCount: 0,
   lastPlayed: null
 };
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH?.replace(/\/$/, "") || "";
-const ENABLE_IMAGE_ENRICHMENT = process.env.NEXT_PUBLIC_ENABLE_PEXELS === "true";
+const ENABLE_IMAGE_ENRICHMENT =
+  process.env.NEXT_PUBLIC_ENABLE_PEXELS === "true" && process.env.NEXT_DISABLE_PEXELS_API !== "1";
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("");
@@ -30,10 +31,16 @@ export default function HomePage() {
   const [playingId, setPlayingId] = useState(null);
   const audioRef = useRef(null);
 
-  const track = useCallback((name, data = {}) => {
-    const events = recordEvent(name, data);
-    setStats(summarize(events));
-  }, []);
+  const track = useCallback(
+    (name, data = {}) => {
+      const events = recordEvent(name, data);
+      setStats((current) => ({
+        ...summarize(events),
+        favoriteCount: favorites.length || current.favoriteCount
+      }));
+    },
+    [favorites.length]
+  );
 
   // Load persisted stats on first paint
   useEffect(() => {
@@ -123,7 +130,7 @@ export default function HomePage() {
         return;
       }
 
-  const audio = new Audio(`${BASE_PATH}${animal.audio}`);
+      const audio = new Audio(withBasePath(animal.audio));
       audioRef.current = audio;
       audio.play().catch((error) => console.warn("[audio] playback failed", error));
       audio.onended = () => {
@@ -158,9 +165,12 @@ export default function HomePage() {
     await Promise.all(
       animals.map(async (animal) => {
         try {
-          const response = await fetch(`/api/images?animal=${encodeURIComponent(animal.name)}`, {
-            signal
-          });
+          const response = await fetch(
+            withBasePath(`/api/images?animal=${encodeURIComponent(animal.name)}`),
+            {
+              signal
+            }
+          );
 
           if (!response.ok) {
             return;
@@ -190,6 +200,10 @@ export default function HomePage() {
     setFavorites([]);
     track("favorites_cleared");
   }, [track]);
+
+  useEffect(() => {
+    setStats((current) => ({ ...current, favoriteCount: favorites.length }));
+  }, [favorites]);
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
