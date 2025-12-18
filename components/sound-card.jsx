@@ -11,6 +11,7 @@ import {
   Chip,
   Tooltip
 } from "@nextui-org/react";
+import { withBasePath } from "@/lib/base-path";
 
 function formatHabitat(habitat) {
   return habitat.split(",").map((part) => part.trim());
@@ -25,6 +26,8 @@ export default function SoundCard({
   image
 }) {
   const habitats = useMemo(() => formatHabitat(animal.habitat), [animal.habitat]);
+  const imageSrc = image?.url || withBasePath(animal.fallbackImage);
+  const imageAlt = image?.alt || `${animal.name} illustration`;
 
   return (
     <Card shadow="sm" className="group relative overflow-hidden border border-divider" role="article">
@@ -58,8 +61,8 @@ export default function SoundCard({
         <div className="relative overflow-hidden rounded-2xl">
           <div className={`absolute inset-0 bg-gradient-to-br ${animal.accent}`} aria-hidden="true" />
           <Image
-            src={image?.url || animal.fallbackImage}
-            alt={image?.alt || `${animal.name} illustration`}
+            src={imageSrc}
+            alt={imageAlt}
             width={640}
             height={360}
             className="h-56 w-full object-cover"
