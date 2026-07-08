@@ -5,6 +5,7 @@
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
       "@/data/*": ["data/*"]
-    }
+    },
+    "ignoreDeprecations": "6.0"
   }
 }

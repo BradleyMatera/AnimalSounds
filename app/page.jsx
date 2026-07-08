@@ -2,14 +2,19 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Divider } from "@nextui-org/react";
-import animals, { continents } from "@/data/animals";
+import animals, { continents, habitats, soundTypes } from "@/data/animals";
 import { withBasePath } from "@/lib/base-path";
 import { loadEvents, recordEvent, summarize } from "@/lib/analytics";
+import { loadEnrichedData, mergeAnimal } from "@/lib/enriched-data";
 import AppNavbar from "@/components/navbar";
 import Hero from "@/components/hero";
+import HabitatExplorer from "@/components/habitat-explorer";
+import DailyDiscovery from "@/components/daily-discovery";
+import DiscoverSection from "@/components/discover-section";
 import Filters from "@/components/filters";
 import FavoritesBar from "@/components/favorites-bar";
 import SoundCard from "@/components/sound-card";
+import SoundPlayer from "@/components/sound-player";
 import StatsOverview from "@/components/stats-overview";
 
 const FAVORITES_KEY = "animal-sounds-favorites";
@@ -25,10 +30,16 @@ const ENABLE_IMAGE_ENRICHMENT =
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("");
   const [continentFilter, setContinentFilter] = useState("All");
+  const [habitatFilter, setHabitatFilter] = useState("All");
+  const [soundTypeFilter, setSoundTypeFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("name");
   const [favorites, setFavorites] = useState([]);
   const [images, setImages] = useState({});
   const [stats, setStats] = useState(DEFAULT_STATS);
   const [playingId, setPlayingId] = useState(null);
+  const [playerOpen, setPlayerOpen] = useState(false);
+  const [playerAnimal, setPlayerAnimal] = useState(null);
+  const [enrichedData, setEnrichedData] = useState(null);
   const audioRef = useRef(null);
 
   const track = useCallback(
@@ -89,13 +100,24 @@ export default function HomePage() {
     };
   }, [track]);
 
+  const mergedAnimals = useMemo(() => {
+    const merged = animals.map((animal) => mergeAnimal(animal, enrichedData?.[animal.id]));
+    if (typeof window !== "undefined") {
+      window.__wildlifeAnimals = merged;
+    }
+    return merged;
+  }, [enrichedData]);
+
   const filteredAnimals = useMemo(() => {
     const normalizedSearch = searchValue.trim().toLowerCase();
 
-    return animals.filter((animal) => {
+    const base = mergedAnimals.filter((animal) => {
       const matchesContinent = continentFilter === "All" || animal.continent === continentFilter;
+      const matchesHabitat = habitatFilter === "All" || animal.habitat === habitatFilter;
+      const matchesSoundType = soundTypeFilter === "All" || animal.soundType === soundTypeFilter;
+
       if (!normalizedSearch) {
-        return matchesContinent;
+        return matchesContinent && matchesHabitat && matchesSoundType;
       }
 
       const haystack = [
@@ -103,18 +125,32 @@ export default function HomePage() {
         animal.scientificName,
         animal.description,
         animal.habitat,
-        animal.continent
+        animal.continent,
+        animal.soundType,
+        animal.region
       ]
+        .filter(Boolean)
         .join(" ")
         .toLowerCase();
 
-      return matchesContinent && haystack.includes(normalizedSearch);
+      return matchesContinent && matchesHabitat && matchesSoundType && haystack.includes(normalizedSearch);
     });
-  }, [continentFilter, searchValue]);
+
+    const sorted = [...base];
+    if (sortBy === "name") {
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "habitat") {
+      sorted.sort((a, b) => a.habitat.localeCompare(b.habitat) || a.name.localeCompare(b.name));
+    } else if (sortBy === "continent") {
+      sorted.sort((a, b) => a.continent.localeCompare(b.continent) || a.name.localeCompare(b.name));
+    }
+
+    return sorted;
+  }, [continentFilter, habitatFilter, soundTypeFilter, searchValue, sortBy]);
 
   const favoriteAnimals = useMemo(
-    () => favorites.map((id) => animals.find((animal) => animal.id === id)).filter(Boolean),
-    [favorites]
+    () => favorites.map((id) => mergedAnimals.find((animal) => animal.id === id)).filter(Boolean),
+    [favorites, mergedAnimals]
   );
 
   const handlePlay = useCallback(
@@ -126,18 +162,25 @@ export default function HomePage() {
 
       if (playingId === animal.id) {
         setPlayingId(null);
+        setPlayerOpen(false);
+        setPlayerAnimal(null);
         track("sound_stopped", { animal: animal.id });
         return;
       }
 
       const audio = new Audio(withBasePath(animal.audio));
       audioRef.current = audio;
+      if (typeof window !== "undefined") {
+        window.__wildlifeAudio = audio;
+      }
       audio.play().catch((error) => console.warn("[audio] playback failed", error));
       audio.onended = () => {
         setPlayingId((current) => (current === animal.id ? null : current));
       };
 
       setPlayingId(animal.id);
+      setPlayerAnimal(animal);
+      setPlayerOpen(true);
       track("sound_played", { animal: animal.name, id: animal.id });
     },
     [playingId, track]
@@ -179,6 +222,11 @@ export default function HomePage() {
           const payload = await response.json();
           const photo = payload.photos?.[0];
           if (photo) {
+            // Preload the remote image so the browser has it ready before scroll reveals
+            if (typeof window !== "undefined" && photo.url) {
+              const preload = new Image();
+              preload.src = photo.url;
+            }
             setImages((prev) => ({ ...prev, [animal.id]: photo }));
           }
         } catch (error) {
@@ -193,6 +241,9 @@ export default function HomePage() {
   useEffect(() => {
     const controller = new AbortController();
     loadImages(controller.signal);
+    loadEnrichedData(controller.signal).then((data) => {
+      if (data) setEnrichedData(data);
+    });
     return () => controller.abort();
   }, [loadImages]);
 
@@ -206,72 +257,130 @@ export default function HomePage() {
   }, [favorites]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="flex min-h-screen flex-col bg-nature-950 text-slate-50">
       <AppNavbar />
-      <main className="mx-auto w-full max-w-6xl flex-1 space-y-16 px-4 py-10 sm:px-6 lg:px-8">
+      <main className="w-full flex-1">
         <Hero />
 
-        <section className="space-y-8" id="collection">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-semibold text-foreground">Featured collection</h2>
-            <p className="text-sm text-default-500">
-              Filter by region or search across habitats, behaviors, and scientific names to find the perfect ambient
-              soundscape.
-            </p>
-          </div>
+        <div className="mx-auto max-w-7xl space-y-24 px-4 py-20 sm:px-6 lg:px-8">
+          <DailyDiscovery onPlay={handlePlay} onSelectHabitat={setHabitatFilter} />
 
-          <Filters
-            search={searchValue}
-            onSearchChange={setSearchValue}
-            continent={continentFilter}
-            onContinentChange={setContinentFilter}
-            continents={continents}
+          <HabitatExplorer onSelectHabitat={setHabitatFilter} activeHabitat={habitatFilter} />
+
+          <DiscoverSection
+            playingId={playingId}
+            favorites={favorites}
+            animals={mergedAnimals}
+            onPlay={handlePlay}
+            onToggleFavorite={handleToggleFavorite}
           />
 
-          <FavoritesBar favorites={favoriteAnimals} onClear={handleClearFavorites} />
-
-          <div className="grid gap-8 md:grid-cols-2">
-            {filteredAnimals.map((animal) => (
-              <SoundCard
-                key={animal.id}
-                animal={animal}
-                isPlaying={playingId === animal.id}
-                isFavorite={favorites.includes(animal.id)}
-                onPlay={handlePlay}
-                onToggleFavorite={handleToggleFavorite}
-                image={images[animal.id]}
-              />
-            ))}
-          </div>
-
-          {filteredAnimals.length === 0 ? (
-            <p className="text-center text-sm text-default-400">
-              No animals match your filters just yet. Try another search term or reset the filters.
-            </p>
-          ) : null}
-        </section>
-
-        <section className="space-y-6" id="about">
-          <Divider />
-          <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-foreground">Crafted for accessibility & performance</h2>
-              <p className="text-sm leading-relaxed text-default-500">
-                This soundboard is rebuilt from the ground up with Next.js 14 App Router, powered by Bun, and styled with
-                NextUI and Tailwind. It ships progressive enhancements, accessible interactions, keyboard-friendly
-                controls, and resilient offline-ready audio so anyone can explore the wild wherever they are.
+          <section className="space-y-8" id="collection">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-nature-400">
+                The collection
+              </span>
+              <h2 className="font-display text-3xl font-bold text-white md:text-4xl">
+                All Wildlife Sounds
+              </h2>
+              <p className="max-w-2xl text-sm text-slate-400">
+                Filter by region, habitat, sound type, or search across names and scientific classifications.
               </p>
-              <ul className="grid gap-3 text-sm text-default-600 dark:text-default-500 sm:grid-cols-2">
-                <li>• Adaptive color system with light/dark theming</li>
-                <li>• Server-side image enrichment via the Pexels API</li>
-                <li>• Local analytics with privacy-first insights</li>
-                <li>• Offline-capable audio served from the public directory</li>
-              </ul>
             </div>
-            <StatsOverview stats={stats} />
-          </div>
-        </section>
+
+            <Filters
+              search={searchValue}
+              onSearchChange={setSearchValue}
+              continent={continentFilter}
+              onContinentChange={setContinentFilter}
+              continents={continents}
+              habitat={habitatFilter}
+              onHabitatChange={setHabitatFilter}
+              habitats={habitats}
+              soundType={soundTypeFilter}
+              onSoundTypeChange={setSoundTypeFilter}
+              soundTypes={soundTypes}
+              sort={sortBy}
+              onSortChange={setSortBy}
+            />
+
+            <FavoritesBar
+              favorites={favoriteAnimals}
+              onClear={handleClearFavorites}
+              onSelect={handlePlay}
+            />
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {filteredAnimals.map((animal) => (
+                <SoundCard
+                  key={animal.id}
+                  animal={animal}
+                  isPlaying={playingId === animal.id}
+                  isFavorite={favorites.includes(animal.id)}
+                  onPlay={handlePlay}
+                  onToggleFavorite={handleToggleFavorite}
+                  image={images[animal.id]}
+                  details={animal.enriched}
+                  scientificName={animal.scientificName}
+                />
+              ))}
+            </div>
+
+            {filteredAnimals.length === 0 ? (
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-12 text-center">
+                <p className="font-display text-xl font-semibold text-white">No wildlife found</p>
+                <p className="mt-2 text-sm text-slate-400">
+                  Try adjusting your filters or search terms to find the perfect soundscape.
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchValue("");
+                    setContinentFilter("All");
+                    setHabitatFilter("All");
+                    setSoundTypeFilter("All");
+                  }}
+                  className="mt-5 rounded-full bg-nature-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-nature-500"
+                >
+                  Reset filters
+                </button>
+              </div>
+            ) : null}
+          </section>
+
+          <section className="space-y-8" id="about">
+            <Divider className="bg-white/10" />
+            <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
+              <div className="space-y-4">
+                <h2 className="font-display text-3xl font-bold text-white">
+                  Crafted for accessibility & performance
+                </h2>
+                <p className="text-sm leading-relaxed text-slate-400">
+                  This wildlife explorer is built with Next.js 14, Bun, Framer Motion, and Tailwind CSS.
+                  It features keyboard navigation, ARIA labels, reduced-motion support, lazy-loaded imagery,
+                  and resilient offline-ready audio so anyone can experience nature wherever they are.
+                </p>
+                <ul className="grid gap-3 text-sm text-slate-400 sm:grid-cols-2">
+                  <li className="flex items-start gap-2"><span className="text-nature-400">✦</span> Immersive dark nature theme</li>
+                  <li className="flex items-start gap-2"><span className="text-nature-400">✦</span> Glassmorphism & animated lighting</li>
+                  <li className="flex items-start gap-2"><span className="text-nature-400">✦</span> Privacy-first local analytics</li>
+                  <li className="flex items-start gap-2"><span className="text-nature-400">✦</span> Offline-capable local audio</li>
+                </ul>
+              </div>
+              <StatsOverview stats={stats} />
+            </div>
+          </section>
+        </div>
       </main>
+
+      <SoundPlayer
+        animal={playerAnimal}
+        isOpen={playerOpen}
+        onClose={() => setPlayerOpen(false)}
+        isPlaying={!!playingId}
+        onTogglePlay={handlePlay}
+        onToggleFavorite={handleToggleFavorite}
+        isFavorite={playerAnimal ? favorites.includes(playerAnimal.id) : false}
+      />
     </div>
   );
 }

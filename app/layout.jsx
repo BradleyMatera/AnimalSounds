@@ -8,30 +8,32 @@ const metadataBaseUrl = `${siteUrl}${basePath}`;
 export const metadata = {
   metadataBase: new URL(metadataBaseUrl),
   title: {
-    default: "Animal Sounds Soundboard",
-    template: "%s | Animal Sounds"
+    default: "Wildlife Sounds — Explore Nature Through Sound",
+    template: "%s | Wildlife Sounds"
   },
   description:
-    "Interactive animal soundboard built with Next.js, Bun, and NextUI featuring rich imagery, accessibility, and offline-ready audio.",
+    "Immerse yourself in a premium wildlife audio explorer. Discover animal calls from forests, oceans, savannas, and beyond with elegant design and accessible interaction.",
   keywords: [
+    "wildlife sounds",
+    "nature audio",
     "animal sounds",
-    "soundboard",
+    "sound explorer",
     "next.js",
-    "nextui",
-    "bun"
+    "framer motion",
+    "tailwind"
   ],
   openGraph: {
-    title: "Animal Sounds Soundboard",
+    title: "Wildlife Sounds — Explore Nature Through Sound",
     description:
-      "Discover a beautifully designed animal soundboard powered by Next.js, Bun, and NextUI.",
+      "A premium wildlife audio explorer built with modern React, Framer Motion, and Tailwind CSS.",
     url: metadataBaseUrl,
-    siteName: "Animal Sounds",
+    siteName: "Wildlife Sounds",
     images: [
       {
         url: withBasePath("/images/lion.jpg"),
         width: 1200,
         height: 630,
-        alt: "Animal Sounds Soundboard preview"
+        alt: "Wildlife Sounds preview"
       }
     ],
     locale: "en_US",
@@ -39,18 +41,18 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Animal Sounds Soundboard",
+    title: "Wildlife Sounds — Explore Nature Through Sound",
     description:
-      "Experience immersive wildlife audio powered by Next.js, Bun, and NextUI",
+      "Immerse yourself in nature through a premium wildlife audio experience.",
     images: [withBasePath("/images/lion.jpg")],
-    creator: "@animalsounds"
+    creator: "@wildlifesounds"
   }
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className="min-h-screen bg-nature-950 text-slate-50 antialiased selection:bg-nature-300/30">
         <Providers>{children}</Providers>
       </body>
     </html>

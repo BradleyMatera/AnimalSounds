@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-  "build": "NEXT_DISABLE_PEXELS_API=1 next build",
-  "postbuild": "bun scripts/postbuild.mjs",
+  "build": "NEXT_DISABLE_PEXELS_API=1 next build",    "enrich": "bun scripts/enrich-animals.mjs",  "postbuild": "bun scripts/postbuild.mjs",
     "start": "bunx --bun serve -s out",
     "preview": "bunx --bun serve -s out",
     "lint": "next lint",

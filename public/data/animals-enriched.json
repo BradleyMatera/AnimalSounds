@@ -1,0 +1,210 @@
+{
+  "_generatedAt": "2026-07-08T03:11:46.911Z",
+  "lion": {
+    "_fetchedAt": "2026-07-08T03:11:47.249Z",
+    "_refreshed": true,
+    "name": "Lion",
+    "taxonomy": {
+      "kingdom": "Animalia",
+      "phylum": "Chordata",
+      "class": "Mammalia",
+      "order": "Carnivora",
+      "family": "Felidae",
+      "genus": "Panthera",
+      "scientific_name": "Panthera leo"
+    },
+    "locations": [
+      "Africa",
+      "Asia"
+    ],
+    "characteristics": {
+      "prey": "Antelope, Warthog, Zebra",
+      "name_of_young": "Cub",
+      "group_behavior": "Pride",
+      "estimated_population_size": "23,000",
+      "biggest_threat": "Habitat loss",
+      "most_distinctive_feature": "Long and thick hairy mane of the male around the face",
+      "other_name(s)": "African Lion",
+      "gestation_period": "110 days",
+      "habitat": "open woodland, scrub, grassland",
+      "diet": "Carnivore",
+      "average_litter_size": "3",
+      "lifestyle": "Diurnal/Nocturnal",
+      "common_name": "Lion",
+      "number_of_species": "2",
+      "location": "sub-Saharan Africa",
+      "slogan": "Lives in small groups called prides!",
+      "group": "Mammal",
+      "color": "BrownGoldTawnyBlonde",
+      "skin_type": "Fur",
+      "top_speed": "35 mph",
+      "lifespan": "8 - 15 years",
+      "weight": "120kg - 249kg (264lbs - 550lbs)",
+      "length": "1.4m - 2.5m (4.7ft - 8.2ft)",
+      "age_of_sexual_maturity": "2 - 3 years",
+      "age_of_weaning": "6 months"
+    }
+  },
+  "elephant": {
+    "_fetchedAt": "2026-07-08T03:11:47.728Z",
+    "_refreshed": true,
+    "name": "Elephant",
+    "taxonomy": {
+      "kingdom": "Animalia",
+      "phylum": "Chordata",
+      "class": "Mammalia",
+      "order": "Proboscidea",
+      "family": "Elephantidae"
+    },
+    "locations": [
+      "Africa",
+      "Asia"
+    ],
+    "characteristics": {
+      "main_prey": "Grass, Fruit, Roots",
+      "distinctive_feature": "Large body size and long trunk",
+      "habitat": "Rainforest and flood plains",
+      "diet": "Herbivore",
+      "average_litter_size": "1",
+      "lifestyle": "Herd",
+      "favorite_food": "Grass",
+      "type": "Mammal",
+      "slogan": "Spends around 22 hours a day eating!",
+      "color": "Grey",
+      "skin_type": "Leather",
+      "top_speed": "25 mph",
+      "lifespan": "55 - 70 years",
+      "weight": "3,000kg - 5,400kg (6,500lbs - 12,000lbs)",
+      "height": "2m - 3.6m (7ft - 12ft)"
+    }
+  },
+  "dog": {
+    "_fetchedAt": "2026-07-08T03:11:48.029Z",
+    "_refreshed": true,
+    "name": "Dog",
+    "taxonomy": {
+      "kingdom": "Animalia",
+      "phylum": "Chordata",
+      "class": "Mammalia",
+      "order": "Carnivora",
+      "family": "Canidae",
+      "genus": "Canis",
+      "scientific_name": "Canis lupus familiaris"
+    },
+    "locations": [
+      "Global"
+    ],
+    "characteristics": {
+      "common_name": "Domestic Dog",
+      "slogan": "Man's best friend with hundreds of distinct breeds!",
+      "diet": "Omnivore",
+      "habitat": "Human settlements worldwide",
+      "lifespan": "10 - 13 years",
+      "weight": "1kg - 80kg (2lbs - 175lbs)",
+      "group": "Mammal",
+      "group_behavior": "Pack",
+      "skin_type": "Fur",
+      "most_distinctive_feature": "Incredible variety of shapes, sizes, and vocalizations",
+      "top_speed": "45 mph",
+      "estimated_population_size": "900 million"
+    }
+  },
+  "cat": {
+    "_fetchedAt": "2026-07-08T03:11:48.330Z",
+    "_refreshed": true,
+    "name": "Cat",
+    "taxonomy": {
+      "kingdom": "Animalia",
+      "phylum": "Chordata",
+      "class": "Mammalia",
+      "order": "Carnivora",
+      "family": "Felidae",
+      "genus": "Felis",
+      "scientific_name": "Felis catus"
+    },
+    "locations": [
+      "Global"
+    ],
+    "characteristics": {
+      "common_name": "Domestic Cat",
+      "slogan": "Purrs, meows, chirps, and trills — all for humans!",
+      "diet": "Carnivore",
+      "habitat": "Human settlements worldwide",
+      "lifespan": "12 - 18 years",
+      "weight": "2kg - 8kg (4lbs - 18lbs)",
+      "group": "Mammal",
+      "group_behavior": "Solitary",
+      "skin_type": "Fur",
+      "most_distinctive_feature": "Flexible body and a wide range of vocal communications",
+      "top_speed": "30 mph",
+      "estimated_population_size": "600 million"
+    }
+  },
+  "bird": {
+    "_fetchedAt": "2026-07-08T03:11:48.630Z",
+    "_refreshed": true,
+    "name": "Songbird",
+    "taxonomy": {
+      "kingdom": "Animalia",
+      "phylum": "Chordata",
+      "class": "Aves",
+      "order": "Passeriformes",
+      "family": "Passeridae"
+    },
+    "locations": [
+      "Global"
+    ],
+    "characteristics": {
+      "common_name": "Songbird",
+      "slogan": "Nature's musicians with complex melodies!",
+      "diet": "Omnivore",
+      "habitat": "Forests, grasslands, wetlands, gardens",
+      "lifespan": "2 - 10 years",
+      "weight": "10g - 1kg (0.3oz - 2.2lbs)",
+      "group": "Bird",
+      "group_behavior": "Flock",
+      "skin_type": "Feathers",
+      "most_distinctive_feature": "Complex vocal learning used for territory and mating songs",
+      "top_speed": "25 mph",
+      "estimated_population_size": "5,000+ species"
+    }
+  },
+  "frog": {
+    "_fetchedAt": "2026-07-08T03:11:49.087Z",
+    "_refreshed": true,
+    "name": "Tree Frog",
+    "taxonomy": {
+      "kingdom": "Animalia",
+      "phylum": "Chordata",
+      "class": "Amphibia",
+      "order": "Anura",
+      "family": "Hylidae"
+    },
+    "locations": [
+      "Africa",
+      "Asia",
+      "Central-America",
+      "Eurasia",
+      "Europe",
+      "North-America",
+      "Oceania",
+      "South-America"
+    ],
+    "characteristics": {
+      "main_prey": "Insects, Worms, Small Frogs",
+      "habitat": "Forests, woodlands and marshes",
+      "predators": "Birds, Mammals, Reptiles",
+      "diet": "Carnivore",
+      "lifestyle": "Solitary",
+      "favorite_food": "Insects",
+      "type": "Amphibian",
+      "average_clutch_size": "50",
+      "slogan": "Found in warmer jungles and forests!",
+      "color": "BrownGreyYellowBlackGreen",
+      "skin_type": "Permeable",
+      "top_speed": "10 mph",
+      "lifespan": "2-4 years",
+      "weight": "2-17g (0.07-0.6oz)"
+    }
+  }
+}

@@ -3,6 +3,7 @@
 import { Switch } from "@nextui-org/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 function SunIcon(props) {
   return (
@@ -59,18 +60,26 @@ export default function ThemeToggle() {
   }
 
   const isDark = (theme ?? resolvedTheme) === "dark";
+  const label = `Switch to ${isDark ? "light" : "dark"} mode`;
 
   return (
-    <Switch
-      className="ml-auto"
-      size="lg"
-      color="secondary"
-      thumbIcon={({ isSelected, className }) =>
-        isSelected ? <MoonIcon className={className} /> : <SunIcon className={className} />
-      }
-      isSelected={isDark}
-      onValueChange={(selected) => setTheme(selected ? "dark" : "light")}
-      aria-label="Toggle dark mode"
-    />
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-nature-400/50"
+      aria-label={label}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
+      <motion.span
+        key={isDark ? "moon" : "sun"}
+        initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+        animate={{ rotate: 0, opacity: 1, scale: 1 }}
+        exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+        transition={{ duration: 0.2 }}
+        className="text-lg"
+      >
+        {isDark ? <MoonIcon width="1.1em" height="1.1em" /> : <SunIcon width="1.1em" height="1.1em" />}
+      </motion.span>
+    </motion.button>
   );
 }

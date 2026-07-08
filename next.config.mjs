@@ -22,7 +22,7 @@ const nextConfig = {
 
 if (normalizedBasePath) {
   nextConfig.basePath = normalizedBasePath;
-  nextConfig.assetPrefix = `${normalizedBasePath}/`;
+  nextConfig.assetPrefix = normalizedBasePath;
 }
 
 export default nextConfig;
